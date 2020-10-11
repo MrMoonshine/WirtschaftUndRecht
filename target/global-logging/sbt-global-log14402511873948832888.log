@@ -1,0 +1,92 @@
+[debug] > Exec(~run;, None, None)
+[debug] > Exec(~run, None, None)
+[debug] > Exec(__runWatch console0, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(__preWatch console0, None, None)
+[debug] > Exec(run, None, None)
+[debug] Evaluating tasks: Compile / run
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 7 Scala sources to D:\Minecraft\Mods\WirtschaftUndRecht\target\scala-2.13\classes ...
+[error] D:\Minecraft\Mods\WirtschaftUndRecht\src\main\scala\Main.scala:8:16: type mismatch;
+[error]  found   : Int(3000)
+[error]  required: lohnsteuer.perpetual.Buchungswerte
+[error]       brutto = 3000
+[error]                ^
+[error] D:\Minecraft\Mods\WirtschaftUndRecht\src\main\scala\lohnsteuer\Buchungsdaten.scala:28:15: value > is not a member of lohnsteuer.perpetual.Buchungswerte
+[error]     if(brutto > 0){
+[error]               ^
+[error] D:\Minecraft\Mods\WirtschaftUndRecht\src\main\scala\lohnsteuer\Buchungsdaten.scala:29:7: type mismatch;
+[error]  found   : lohnsteuer.perpetual.Buchungswerte
+[error]  required: Double
+[error]       brutto
+[error]       ^
+[error] D:\Minecraft\Mods\WirtschaftUndRecht\src\main\scala\lohnsteuer\Buchungsdaten.scala:31:25: type mismatch;
+[error]  found   : Double
+[error]  required: lohnsteuer.perpetual.Buchungswerte
+[error]       brutto = h_arbeit * h_lohn
+[error]                         ^
+[error] D:\Minecraft\Mods\WirtschaftUndRecht\src\main\scala\lohnsteuer\Buchungsdaten.scala:32:7: type mismatch;
+[error]  found   : lohnsteuer.perpetual.Buchungswerte
+[error]  required: Double
+[error]       brutto
+[error]       ^
+[error] 5 errors found
+[error] Compilation failed
+[error] 	at xsbt.CachedCompiler0.handleErrors(CompilerBridge.scala:183)
+[error] 	at xsbt.CachedCompiler0.run(CompilerBridge.scala:172)
+[error] 	at xsbt.CachedCompiler0.run(CompilerBridge.scala:134)
+[error] 	at xsbt.CompilerBridge.run(CompilerBridge.scala:39)
+[error] 	at sbt.internal.inc.AnalyzingCompiler.compile(AnalyzingCompiler.scala:92)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$7(MixedAnalyzingCompiler.scala:185)
+[error] 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.timed(MixedAnalyzingCompiler.scala:240)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$4(MixedAnalyzingCompiler.scala:175)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$4$adapted(MixedAnalyzingCompiler.scala:156)
+[error] 	at sbt.internal.inc.JarUtils$.withPreviousJar(JarUtils.scala:232)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.compileScala$1(MixedAnalyzingCompiler.scala:156)
+[error] 	at sbt.internal.inc.MixedAnalyzingCompiler.compile(MixedAnalyzingCompiler.scala:203)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileInternal$1(IncrementalCompilerImpl.scala:571)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileInternal$1$adapted(IncrementalCompilerImpl.scala:571)
+[error] 	at sbt.internal.inc.Incremental$.$anonfun$apply$5(Incremental.scala:174)
+[error] 	at sbt.internal.inc.Incremental$.$anonfun$apply$5$adapted(Incremental.scala:172)
+[error] 	at sbt.internal.inc.Incremental$$anon$2.run(Incremental.scala:459)
+[error] 	at sbt.internal.inc.IncrementalCommon$CycleState.next(IncrementalCommon.scala:116)
+[error] 	at sbt.internal.inc.IncrementalCommon$$anon$1.next(IncrementalCommon.scala:56)
+[error] 	at sbt.internal.inc.IncrementalCommon$$anon$1.next(IncrementalCommon.scala:52)
+[error] 	at sbt.internal.inc.IncrementalCommon.cycle(IncrementalCommon.scala:261)
+[error] 	at sbt.internal.inc.Incremental$.$anonfun$incrementalCompile$8(Incremental.scala:414)
+[error] 	at sbt.internal.inc.Incremental$.withClassfileManager(Incremental.scala:499)
+[error] 	at sbt.internal.inc.Incremental$.incrementalCompile(Incremental.scala:401)
+[error] 	at sbt.internal.inc.Incremental$.apply(Incremental.scala:166)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.compileInternal(IncrementalCompilerImpl.scala:571)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileIncrementally$1(IncrementalCompilerImpl.scala:489)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.handleCompilationError(IncrementalCompilerImpl.scala:332)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.compileIncrementally(IncrementalCompilerImpl.scala:419)
+[error] 	at sbt.internal.inc.IncrementalCompilerImpl.compile(IncrementalCompilerImpl.scala:137)
+[error] 	at sbt.Defaults$.compileIncrementalTaskImpl(Defaults.scala:2139)
+[error] 	at sbt.Defaults$.$anonfun$compileIncrementalTask$2(Defaults.scala:2099)
+[error] 	at sbt.internal.io.Retry$.apply(Retry.scala:40)
+[error] 	at sbt.internal.io.Retry$.apply(Retry.scala:23)
+[error] 	at sbt.internal.server.BspCompileTask$.compute(BspCompileTask.scala:31)
+[error] 	at sbt.Defaults$.$anonfun$compileIncrementalTask$1(Defaults.scala:2096)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:49)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:62)
+[error] 	at sbt.std.Transform$$anon$4.work(Transform.scala:68)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:282)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:23)
+[error] 	at sbt.Execute.work(Execute.scala:291)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:282)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:265)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:64)
+[error] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[error] 	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+[error] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[error] 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+[error] 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+[error] 	at java.base/java.lang.Thread.run(Thread.java:834)
+[error] (Compile / compileIncremental) Compilation failed
+[error] Total time: 1 s, completed 09.10.2020, 14:03:54
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(__postWatch console0, None, None)
+[debug] > Exec(__waitWatch console0, None, None)
