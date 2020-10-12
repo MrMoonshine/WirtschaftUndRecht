@@ -3,6 +3,7 @@ package lohnsteuer
 import java.time.Month
 
 import lohnsteuer.perpetual.{Buchungswerte, MonatslohnsteuerTabelle, Zwischenrechnung}
+import scalafx.application.JFXApp
 
 case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   pers_i.refactor()
