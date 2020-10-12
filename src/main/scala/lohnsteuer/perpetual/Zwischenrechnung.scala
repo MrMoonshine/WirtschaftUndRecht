@@ -2,19 +2,36 @@ package lohnsteuer.perpetual
 
 case class Zwischenrechnung(title:String){
   private val fullLine:String = "-------------------------------------------"
-  private var mainStr =
+  private var cliStr =
     s"""$fullLine
        |$title
        |$fullLine
        |""".stripMargin
 
+  var result:Buchungswerte = Buchungswerte(title)
+
   def +=(a:String): Unit ={
-    mainStr += a + "\n"
+    cliStr += a + "\n"
+  }
+
+  def +=(a:Buchungswerte): Unit ={
+    cliStr += a.toString() + "\n"
+    result.value = result + a
+  }
+
+  def -=(a:Buchungswerte): Unit ={
+    cliStr += a.substractString() + "\n"
+    result.value = result - a
   }
 
   def line(): Unit ={
-    mainStr += fullLine + "\n"
+    cliStr += fullLine + "\n"
   }
 
-  override def toString: String = mainStr
+  def drawResult(): Unit ={
+    line()
+    cliStr += result.toString() + "\n"
+  }
+
+  override def toString: String = cliStr
 }

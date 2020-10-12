@@ -29,66 +29,64 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
       MonatslohnsteuerTabelle.cl6
     }
   }
-  private def calcLohnsteuerBemessungsgrundlage(): Buchungswerte ={
-    var lstbmgl_n:Double = pers_i.brutto - pers_i.sv.value - pers_i.pendlerPauschale.value - pers_i.gewerkschaftsbeitrag - pers_i.freibetrag
-    lstbmglBerechnung += pers_i.brutto.toString
-    lstbmglBerechnung += pers_i.sv.substractString()
-    lstbmglBerechnung += pers_i.pendlerPauschale.substractString()
-    lstbmglBerechnung += Buchungswerte("Gewerkschaftsbeitrag",pers_i.gewerkschaftsbeitrag).substractString()
-    lstbmglBerechnung += Buchungswerte("Freibetrag",pers_i.freibetrag).substractString()
+  private def calcLohnsteuerBemessungsgrundlage(): Zwischenrechnung ={
+    import pers_i._
+
+    lstbmglBerechnung += brutto
+    lstbmglBerechnung -= sv
+    lstbmglBerechnung -= pendlerPauschale
+    lstbmglBerechnung -= gewerkschaftsbeitrag
+    lstbmglBerechnung -= freibetrag
     if(month == Month.NOVEMBER){
-      lstbmgl_n -= perpetual.e_card
-      lstbmglBerechnung += Buchungswerte("E-Card",perpetual.e_card).substractString()
+      lstbmglBerechnung -= e_card
     }
-    val lstbmgl = Buchungswerte("Lohnsteuer Bemessungsgrundlage",lstbmgl_n)
-    lstbmglBerechnung.line()
-    lstbmglBerechnung += lstbmgl.toString()
-    lstbmgl
+    lstbmglBerechnung.drawResult()
+    lstbmglBerechnung
   }
-  private def calcLohnsteuer():Buchungswerte = {
+  private def calcLohnsteuer():Zwischenrechnung = {
+    import pers_i._
     val lstcat = getLSTBMGLcat(lstbmgl.value)
-    val AVAB:Double = lstcat.getAVAB(pers_i.kinder)
+    val AVAB:Double = lstcat.getAVAB(kinder)
 
-    val lst_n:Double = lstbmgl - lstbmgl*lstcat.grenzsteuersatz - AVAB - pers_i.pendlerPauschale.pendlereuro.value
-    lstBerechnung += lstbmgl.toString()
-    lstBerechnung += Buchungswerte(s"${(lstcat.grenzsteuersatz*100).asInstanceOf[Int]}% LSTBMGL",lstbmgl*lstcat.grenzsteuersatz).substractString()
-    lstBerechnung += Buchungswerte("AVAB",AVAB).substractString()
-    lstBerechnung += pers_i.pendlerPauschale.pendlereuro.substractString()
-    lstBerechnung.line()
-    val lst_bn = Buchungswerte("Lohnsteuer",lst_n)
-    lstBerechnung += lst_bn.toString()
-    lst_bn
+    lstBerechnung += lstbmgl
+    lstBerechnung -= Buchungswerte(s"${(lstcat.grenzsteuersatz*100).asInstanceOf[Int]}% LSTBMGL",lstbmgl*lstcat.grenzsteuersatz)
+    lstBerechnung -= Buchungswerte("AVAB",AVAB)
+    lstBerechnung -= pendlerPauschale.pendlereuro
+
+    lstBerechnung.drawResult()
+    lstBerechnung
   }
-  private def calcNetto():Buchungswerte = {
-    var netto_n:Double = pers_i.brutto - lst - pers_i.gewerkschaftsbeitrag - pers_i.sv.value
-
-
-    nettoBerechnung += pers_i.brutto.toString()
-    nettoBerechnung += lst.substractString()
-    nettoBerechnung += Buchungswerte("Gewerkschaftsbeitrag",pers_i.gewerkschaftsbeitrag).substractString()
-    nettoBerechnung += pers_i.sv.substractString()
+  private def calcNetto():Zwischenrechnung = {
+    import pers_i._
+    nettoBerechnung += brutto
+    nettoBerechnung -= lst
+    nettoBerechnung -= gewerkschaftsbeitrag
+    nettoBerechnung -= sv
 
     if(month == Month.NOVEMBER){
-      netto_n -= perpetual.e_card
-      nettoBerechnung += Buchungswerte("E-Card",perpetual.e_card).substractString()
+      nettoBerechnung -= e_card
     }
-    val netto_bn = Buchungswerte("Netto",netto_n)
-    nettoBerechnung.line()
-    nettoBerechnung += netto_bn.toString()
-    netto_bn
+
+    nettoBerechnung.drawResult()
+    nettoBerechnung
   }
 
-  def getLohnsteuer(): Buchungswerte ={
+  def getLohnsteuer: Buchungswerte ={
     lst
   }
 
-  private val lstbmgl:Buchungswerte = calcLohnsteuerBemessungsgrundlage()
+  lstbmglBerechnung = calcLohnsteuerBemessungsgrundlage()
+  private val lstbmgl:Buchungswerte = lstbmglBerechnung.result
 
+  lstBerechnung = calcLohnsteuer()
+  private val lst = lstBerechnung.result
+
+  nettoBerechnung = calcNetto()
+  private val netto = nettoBerechnung.result
 
   override def toString: String = {
     lstbmglBerechnung.toString + lstBerechnung.toString + nettoBerechnung.toString
   }
 
-  val lst = calcLohnsteuer()
-  val netto = calcNetto()
+
 }

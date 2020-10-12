@@ -15,23 +15,27 @@ class Buchungsdaten {
   var h_lohn:Double = 0
   var h_arbeit:Double = 0
   //Freibetrag
-  var freibetrag:Double = 0
+  var freibetrag:Buchungswerte = Buchungswerte("Freibetrag")
   //schmutzzulage
-  var sz:Double = 0
-  var ez:Double = 0
+  var sz:Buchungswerte = Buchungswerte("Schmutzzulage")
+  var ez:Buchungswerte = Buchungswerte("Erschwerniszulage")
+  var gz:Buchungswerte = Buchungswerte("Gefahrenzulage")
   //Überstunden
   var ust:Int = 0
-  var gewerkschaftsbeitrag:Double = 0
+  var gewerkschaftsbeitrag:Buchungswerte = Buchungswerte("Gewerkschaftsbeitrag")
 
   //sozialversichenrung
-  var sv:Buchungswerte = Buchungswerte("SV-DNA",0)
+  var sv:Buchungswerte = Buchungswerte("SV-DNA")
+
+  //E-Card
+  lazy val e_card:Buchungswerte = Buchungswerte("E-Card",perpetual.e_card)
 
   private def calcGewerkschaftsbeitrag(): Unit ={
     val tentative_gew:Double = brutto * perpetual.gew_faktor  //1%
     if (tentative_gew > perpetual.gew_max){
-      gewerkschaftsbeitrag = perpetual.gew_max
+      gewerkschaftsbeitrag.value = perpetual.gew_max
     }else{
-     gewerkschaftsbeitrag = tentative_gew
+     gewerkschaftsbeitrag.value = tentative_gew
     }
   }
   //Calculate Brutto if it is not set
@@ -62,21 +66,22 @@ class Buchungsdaten {
   }
 
   override def toString: String = {
-    val fullLine:String = "------------------------------------"
+    val fullLine:String = "-------------------------------------------"
     pendlerPauschale.refreshName
     val outstr =
       s"""$fullLine
          |$name
          |$fullLine
-         |Brutto               = ${perpetual.euroString(brutto.value,true)}
-         |Kinder               = $kinder
-         |Pendlerpauschale     = ${pendlerPauschale.distance} km ( ${pendlerPauschale.name} )
-         |                     = ${perpetual.euroString(pendlerPauschale.value,true)}
-         |Freibetrag           = ${perpetual.euroString(freibetrag,true)}
-         |Gewerkschaftsbeitrag = ${perpetual.euroString(gewerkschaftsbeitrag,true)}
-         |Schmutzzulage        = ${perpetual.euroString(sz,true)}
-         |EZ???                = ${perpetual.euroString(ez,true)}
-         |Ueberstunden         = $ust
+         |${brutto.toString()}
+         |${Buchungswerte("Kinder",kinder).toString()}
+         |${Buchungswerte("Pendlerpauschale Typ:",pendlerPauschale.distance).toString()} km ( ${pendlerPauschale.name} )
+         |${pendlerPauschale.toString()}
+         |${gewerkschaftsbeitrag.toString()}
+         |${freibetrag.toString()}
+         |${ez.toString()}
+         |${gz.toString()}
+         |${sz.toString()}
+         |${Buchungswerte("Ueberstunden",ust).toString()}
          |$fullLine
          |""".stripMargin
     outstr
