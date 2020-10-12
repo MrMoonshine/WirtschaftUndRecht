@@ -6,7 +6,7 @@ import lohnsteuer.{Buchungsdaten, Lohnsteuer}
 object Main{
   def main(args: Array[String]): Unit = {
     println("Oida!!!")
-    var a = new Buchungsdaten{
+    val a = new Buchungsdaten{
       name = "Gustav Olafson"
       brutto.value = 3120
       pendlerPauschale = new PendlerPauschale{
@@ -15,6 +15,7 @@ object Main{
       }
       kinder = 4
       freibetrag = 24.80
+      ust = 25
     }
 
     var b = Lohnsteuer(a,Month.NOVEMBER)

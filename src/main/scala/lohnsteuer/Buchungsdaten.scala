@@ -24,7 +24,7 @@ class Buchungsdaten {
   var gewerkschaftsbeitrag:Double = 0
 
   //sozialversichenrung
-  var sv:Buchungswerte = Buchungswerte("Sozialversicherung",0)
+  var sv:Buchungswerte = Buchungswerte("SV-DNA",0)
 
   private def calcGewerkschaftsbeitrag(): Unit ={
     val tentative_gew:Double = brutto * perpetual.gew_faktor  //1%

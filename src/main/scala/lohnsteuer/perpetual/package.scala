@@ -31,7 +31,7 @@ package object perpetual {
       return outstr
     }
 
-    val s = new DecimalFormat("###,###.00")
+    val s = new DecimalFormat("###.###,00")
     s.setDecimalSeparatorAlwaysShown(true)
     s.format(a)
   }
