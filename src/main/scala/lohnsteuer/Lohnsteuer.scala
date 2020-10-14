@@ -3,7 +3,6 @@ package lohnsteuer
 import java.time.Month
 
 import lohnsteuer.perpetual.{Buchungswerte, MonatslohnsteuerTabelle, Zwischenrechnung}
-import scalafx.application.JFXApp
 
 case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   pers_i.refactor()
@@ -101,6 +100,7 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     pers_i.target_lohn match {
       case Buchungsdaten.LOHN_URLAUB => outstr += sonderzahlung.diffCalc.toString + svdna_urlaub.toString
       case Buchungsdaten.LOHN_WEIHNACHTEN => outstr += sonderzahlung.diffCalc.toString + svdna_weihnachten.toString
+      case _ => ;
     }
     outstr += lstbmglBerechnung.toString + pers_i.pendlerPauschale.pendlereuroRechnung.toString + lstBerechnung.toString + nettoBerechnung.toString
     outstr
