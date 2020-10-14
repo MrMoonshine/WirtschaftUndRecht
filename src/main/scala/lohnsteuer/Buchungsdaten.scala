@@ -2,6 +2,12 @@ package lohnsteuer
 
 import lohnsteuer.perpetual.{Buchungswerte, PendlerPauschale}
 
+object Buchungsdaten{
+  val LOHN_DEFAULT:Int = 0
+  val LOHN_WEIHNACHTEN:Int = 1
+  val LOHN_URLAUB:Int = 2
+}
+
 class Buchungsdaten {
   var name:String = "Unbekannt"
   //Brutto gehalt in €
@@ -23,10 +29,12 @@ class Buchungsdaten {
   //Überstunden
   var ust:Int = 0
   var gewerkschaftsbeitrag:Buchungswerte = Buchungswerte("Gewerkschaftsbeitrag")
-
   //sozialversichenrung
   var sv:Buchungswerte = Buchungswerte("SV-DNA")
-
+  //Sonderzahlung
+  var weihnachtsgeld:Buchungswerte = Buchungswerte("Weihnachtsgeld")
+  var urlaubsgeld:Buchungswerte = Buchungswerte("Urlaubsgeld")
+  var target_lohn:Int = Buchungsdaten.LOHN_DEFAULT
   //E-Card
   lazy val e_card:Buchungswerte = Buchungswerte("E-Card",perpetual.e_card)
 

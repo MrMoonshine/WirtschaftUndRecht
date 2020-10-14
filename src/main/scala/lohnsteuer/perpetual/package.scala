@@ -16,6 +16,14 @@ package object perpetual {
 
   val e_card:Double = 12.30
 
+  //Konstanten für Sonderzahlungen
+  val sz_hoechstbetrag:Buchungswerte = Buchungswerte("Hoechstbetrag",10740)
+  val sz_percentFactor:Buchungswerte = Buchungswerte("LST-Faktor",6.0/100.0)
+  var sz_hb_diff:Buchungswerte = Buchungswerte("UG + WG - HB")
+  //17.12% weil 0,5% an Kammerumlage und 0,5% an der Wohnbauförderung abgezogen werden
+  val sz_svdna_factor:Buchungswerte = Buchungswerte("SV-DNA 17,12%",17.12/100.0)
+  val sz_lst_factor:Buchungswerte = Buchungswerte("LST 6%",6.0/100.0)
+
   //Überstunden
   val ust_teiler:Double = 1.0/158.0
 

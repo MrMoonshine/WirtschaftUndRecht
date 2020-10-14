@@ -11,6 +11,10 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   var lstBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer")
   var nettoBerechnung:Zwischenrechnung = Zwischenrechnung("Netto Berechnung")
 
+  private lazy val sonderzahlung:Sonderzahlungen = new Sonderzahlungen(pers_i)
+  private lazy val svdna_urlaub = sonderzahlung.svdna_urlaubsgeld
+  private lazy val svdna_weihnachten = sonderzahlung.svdna_weihnachtsgeld
+
   private def getLSTBMGLcat(lstbmgl:Double): MonatslohnsteuerTabelle.Constants ={
     if(lstbmgl < 0){
       throw new Exception("Falsche Lohnsteuerbemessungsgrundlage")
@@ -34,7 +38,14 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     import pers_i._
 
     lstbmglBerechnung += brutto
-    lstbmglBerechnung -= sv
+    //Wenn eine Sonderzahlung abgerechnet wird soll eine Andere SV-DNA berechnet werden
+    target_lohn match {
+      case Buchungsdaten.LOHN_DEFAULT => lstbmglBerechnung -= sv
+      case Buchungsdaten.LOHN_URLAUB => lstBerechnung -= svdna_urlaub.result
+      case Buchungsdaten.LOHN_WEIHNACHTEN => lstBerechnung -= svdna_weihnachten.result
+      case _ => throw new Exception("Ungueltige Lohnverrechnung")
+    }
+
     lstbmglBerechnung -= pendlerPauschale
     lstbmglBerechnung -= gewerkschaftsbeitrag
     lstbmglBerechnung -= freibetrag
@@ -86,8 +97,15 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   private val netto = nettoBerechnung.result
 
   override def toString: String = {
-    lstbmglBerechnung.toString + lstBerechnung.toString + nettoBerechnung.toString
+    var outstr = ""
+    pers_i.target_lohn match {
+      case Buchungsdaten.LOHN_URLAUB => outstr += sonderzahlung.diffCalc.toString + svdna_urlaub.toString
+      case Buchungsdaten.LOHN_WEIHNACHTEN => outstr += sonderzahlung.diffCalc.toString + svdna_weihnachten.toString
+    }
+    outstr += lstbmglBerechnung.toString + pers_i.pendlerPauschale.pendlereuroRechnung.toString + lstBerechnung.toString + nettoBerechnung.toString
+    outstr
   }
+
 
 
 }

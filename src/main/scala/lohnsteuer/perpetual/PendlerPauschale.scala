@@ -7,6 +7,7 @@ object PendlerPauschale{
 class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
   var distance:Double = 0
   var type_pp:Boolean = false
+  var pendlereuroRechnung:Zwischenrechnung = Zwischenrechnung("Pendlereuro")
   var pendlereuro = Buchungswerte("Pendlereuro",0)
 
   def :=(distance_i:Double):Unit = {
@@ -25,7 +26,10 @@ class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
   def calc():Double = {
     if(distance < 0){throw new Exception("Falsche Pendlerpauschale!")}
 
+    pendlereuroRechnung = Zwischenrechnung("Pendlereuro")
     pendlereuro.value = distance*2/12
+    pendlereuroRechnung += Buchungswerte(s"$distance * 2 / 12", pendlereuro.value)
+    pendlereuroRechnung.drawResult()
 
     if(type_pp){
       if(distance < 2){
