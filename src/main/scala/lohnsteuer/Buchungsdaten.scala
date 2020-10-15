@@ -90,6 +90,8 @@ class Buchungsdaten {
          |${gz.toString()}
          |${sz.toString()}
          |${Buchungswerte("Ueberstunden",ust).toString()}
+         |${weihnachtsgeld.toString()}
+         |${urlaubsgeld.toString()}
          |$fullLine
          |""".stripMargin
     outstr

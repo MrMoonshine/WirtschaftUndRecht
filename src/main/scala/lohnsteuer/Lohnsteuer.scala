@@ -86,26 +86,45 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     lst
   }
 
-  lstbmglBerechnung = calcLohnsteuerBemessungsgrundlage()
-  private val lstbmgl:Buchungswerte = lstbmglBerechnung.result
+  private var lstbmgl:Buchungswerte = Buchungswerte("X")
+  private var lst:Buchungswerte = Buchungswerte("X")
+  private var netto:Buchungswerte = Buchungswerte("X")
 
-  lstBerechnung = calcLohnsteuer()
-  private val lst = lstBerechnung.result
+  if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){
+    lstbmglBerechnung = calcLohnsteuerBemessungsgrundlage()
+    lstbmgl = lstbmglBerechnung.result
+    lstBerechnung = calcLohnsteuer()
+    lst = lstBerechnung.result
+    nettoBerechnung = calcNetto()
+    netto = nettoBerechnung.result
+  }else{
+    pers_i.target_lohn match {
+      case Buchungsdaten.LOHN_URLAUB =>{
+        lstbmglBerechnung = sonderzahlung.diffCalc
+        lstBerechnung = sonderzahlung.svdna_urlaubsgeld
+        nettoBerechnung = sonderzahlung.urlaubsgeld_netto
+      }
+      case Buchungsdaten.LOHN_WEIHNACHTEN => {
+        lstbmglBerechnung = sonderzahlung.diffCalc
+        lstBerechnung = sonderzahlung.svdna_weihnachtsgeld
+        nettoBerechnung = sonderzahlung.weihnachtsgeld_netto
+      }
+      case _ => ;
+    }
 
-  nettoBerechnung = calcNetto()
-  private val netto = nettoBerechnung.result
+    lstbmgl = lstbmglBerechnung.result
+    lst = lstBerechnung.result
+    netto = nettoBerechnung.result
+  }
 
   override def toString: String = {
     var outstr = ""
-    pers_i.target_lohn match {
-      case Buchungsdaten.LOHN_URLAUB => outstr += sonderzahlung.diffCalc.toString + svdna_urlaub.toString
-      case Buchungsdaten.LOHN_WEIHNACHTEN => outstr += sonderzahlung.diffCalc.toString + svdna_weihnachten.toString
-      case _ => ;
+    outstr += lstbmglBerechnung.toString
+    if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){
+      outstr += pers_i.pendlerPauschale.pendlereuroRechnung.toString
     }
-    outstr += lstbmglBerechnung.toString + pers_i.pendlerPauschale.pendlereuroRechnung.toString + lstBerechnung.toString + nettoBerechnung.toString
+    outstr += lstBerechnung.toString
+    outstr +=nettoBerechnung.toString
     outstr
   }
-
-
-
 }

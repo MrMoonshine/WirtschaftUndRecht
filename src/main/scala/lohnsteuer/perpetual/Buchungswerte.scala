@@ -1,6 +1,11 @@
 package lohnsteuer.perpetual
 
-case class Buchungswerte(name_i:String,value_i:Double = 0){
+object Buchungswerte{
+  val EURO:Int = 0
+  val PROZENT:Int = 1
+}
+
+case class Buchungswerte(name_i:String,value_i:Double = 0,number_unit:Int = Buchungswerte.EURO){
   var name:String = name_i
   var value:Double = value_i
 
@@ -27,7 +32,13 @@ case class Buchungswerte(name_i:String,value_i:Double = 0){
       spaces += " "
     }
 
-    s"$name $spaces $dispneg${euroString(value,true)}"
+    if(number_unit == Buchungswerte.EURO){
+      s"$name $spaces $dispneg${euroString(value,true)}"
+    }else if(number_unit == Buchungswerte.PROZENT){
+      s"$name $spaces $dispneg${value * 100.0}%"
+    }else{
+     throw new Exception("Falsche Einheit")
+    }
   }
 
   override def toString(): String = {

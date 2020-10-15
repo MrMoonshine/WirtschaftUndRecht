@@ -1,21 +1,13 @@
 import java.time.Month
 
-import UI.Description
 import lohnsteuer.perpetual.PendlerPauschale
 import lohnsteuer.{Buchungsdaten, Lohnsteuer}
-import scalafx.application.JFXApp
-import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.Insets
-import scalafx.scene.Scene
-import scalafx.scene.layout.VBox
-import scalafx.scene.paint.Color.White
-import scalafx.scene.text.Text
 
 //import scalafx.scene.paint.Color._
 
-object Main extends JFXApp{
-  //def main(args: Array[String]): Unit = {
-    private val a = new Buchungsdaten {
+object Main extends{// JFXApp{
+  def main(args: Array[String]): Unit = {
+    val a = new Buchungsdaten {
       name = "Gustav Olafson"
       brutto.value = 3120
       pendlerPauschale = new PendlerPauschale {
@@ -27,15 +19,15 @@ object Main extends JFXApp{
       ust = 25
       weihnachtsgeld.value = 6400
       urlaubsgeld.value = 6100
-      target_lohn = Buchungsdaten.LOHN_DEFAULT
+      target_lohn = Buchungsdaten.LOHN_URLAUB
     }
 
     var b = Lohnsteuer(a, Month.NOVEMBER)
     println(a.toString)
     println(b.toString)
-  //}
+  }
 
-  stage = new PrimaryStage {
+  /*stage = new PrimaryStage {
     title = a.name
     scene = new Scene {
       fill = White
@@ -45,9 +37,10 @@ object Main extends JFXApp{
           new UI.Title("Lohnsteuer"),
           new Text(a.toString),
           new Text(b.toString),
-          new Description().getButton
+          new Description().getButton,
+          new Description("Sonderzahlungen","assets/Sonderzahlungen").getButton
         )
       }
     }
-  }
+  }*/
 }
