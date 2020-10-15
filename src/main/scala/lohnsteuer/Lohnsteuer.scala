@@ -117,6 +117,19 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     netto = nettoBerechnung.result
   }
 
+  def getCalculations():List[Zwischenrechnung]  ={
+    var outcalcs:List[Zwischenrechnung] = List()
+    outcalcs :+= lstbmglBerechnung
+
+    if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){
+      outcalcs :+= pers_i.pendlerPauschale.pendlereuroRechnung
+    }
+
+    outcalcs :+= lstBerechnung
+    outcalcs :+= nettoBerechnung
+    outcalcs
+  }
+
   override def toString: String = {
     var outstr = ""
     outstr += lstbmglBerechnung.toString

@@ -1,6 +1,7 @@
 package lohnsteuer
 
-import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 
 package object perpetual {
@@ -39,8 +40,8 @@ package object perpetual {
       return outstr
     }
 
-    val s = new DecimalFormat("###.###,00")
-    s.setDecimalSeparatorAlwaysShown(true)
-    s.format(a)
+    val loc:Locale = Locale.GERMANY
+    val numberFormat:NumberFormat = NumberFormat.getCurrencyInstance(loc)
+    numberFormat.format(a)
   }
 }

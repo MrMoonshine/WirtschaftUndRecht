@@ -30,4 +30,5 @@ class Description(name_i:String = "Lorem Ipsum",file_i:String = "assets/loremIps
   headerText = name_i
   contentText = loadContent()
 
+  initStyle(UI.globalStyle)
 }

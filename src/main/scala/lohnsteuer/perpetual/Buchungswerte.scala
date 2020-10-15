@@ -45,6 +45,10 @@ case class Buchungswerte(name_i:String,value_i:Double = 0,number_unit:Int = Buch
     drawString()
   }
 
+  def euroStringUI(): String ={
+    euroString(value,false)
+  }
+
   def substractString(): String ={
     drawString(true)
   }
