@@ -6,9 +6,9 @@ import lohnsteuer.perpetual.{Buchungswerte, MonatslohnsteuerTabelle, Zwischenrec
 
 case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   pers_i.refactor()
-  var lstbmglBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer Bemessungsgrundlage")
-  var lstBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer")
-  var nettoBerechnung:Zwischenrechnung = Zwischenrechnung("Netto Berechnung")
+  var lstbmglBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer Bemessungsgrundlage",UI.Description.Lohnsteuerbemessungsgrundlage)
+  var lstBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer",UI.Description.Lohnsteuer)
+  var nettoBerechnung:Zwischenrechnung = Zwischenrechnung("Netto Berechnung",UI.Description.Netto)
 
   private lazy val sonderzahlung:Sonderzahlungen = new Sonderzahlungen(pers_i)
   private lazy val svdna_urlaub = sonderzahlung.svdna_urlaubsgeld
@@ -117,8 +117,8 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     netto = nettoBerechnung.result
   }
 
-  def getCalculations():List[Zwischenrechnung]  ={
-    var outcalcs:List[Zwischenrechnung] = List()
+  def getCalculations():Seq[Zwischenrechnung]  ={
+    var outcalcs:Seq[Zwischenrechnung] = Seq()
     outcalcs :+= lstbmglBerechnung
 
     if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){

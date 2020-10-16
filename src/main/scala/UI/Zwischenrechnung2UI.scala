@@ -1,12 +1,16 @@
 package UI
 
 import lohnsteuer.perpetual.Zwischenrechnung
-import scalafx.scene.layout.{GridPane, VBox}
+import scalafx.scene.layout.VBox
 
-class Zwischenrechnung2UI(list_i:List[Zwischenrechnung]) extends VBox{
-  private var children_n:Seq[GridPane] = Seq()
-  list_i.foreach(children_n :+= _.calculationPane)
+class Zwischenrechnung2UI(list_i:Seq[Zwischenrechnung]) extends VBox{
+  //private var children_n:Seq[GridPane] = Seq()
+  //list_i.foreach(children_n :+= _.calculationPane)
 
   children = Seq()
-  children.add(list_i.last.calculationPane)
+
+  for(n <- list_i.indices){
+    //list_i(n).colorSelection = n % UI.soconadary_title_colors.length
+    children.add(list_i(n).calculationPane)
+  }
 }
