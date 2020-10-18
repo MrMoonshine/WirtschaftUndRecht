@@ -1,12 +1,13 @@
 package lohnsteuer.perpetual
 
 object PendlerPauschale{
-  val KLEIN = false
-  val GROSS = true
+  val KLEIN:Int = 1
+  val GROSS:Int = 2
+  val NONE:Int = 0
 }
 class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
   var distance:Double = 0
-  var type_pp:Boolean = false
+  var type_pp:Int = PendlerPauschale.NONE
   var pendlereuroRechnung:Zwischenrechnung = Zwischenrechnung("Pendlereuro")
   var pendlereuro = Buchungswerte("Pendlereuro",0)
 
@@ -15,15 +16,16 @@ class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
   }
 
   def refreshName(): Unit ={
-    if(type_pp){
+    if(type_pp == PendlerPauschale.GROSS){
       name += " Gross"
-    }else{
+    }else if(type_pp == PendlerPauschale.KLEIN){
       name += " Klein"
     }
   }
 
   //Pendlerpauschale berechnen
   def calc():Double = {
+    if(type_pp == PendlerPauschale.NONE){return 0}
     if(distance < 0){throw new Exception("Falsche Pendlerpauschale!")}
 
     pendlereuroRechnung = Zwischenrechnung("Pendlereuro")
@@ -31,7 +33,7 @@ class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
     pendlereuroRechnung += Buchungswerte(s"$distance * 2 / 12", pendlereuro.value)
     pendlereuroRechnung.drawResult()
 
-    if(type_pp){
+    if(type_pp == PendlerPauschale.GROSS){
       if(distance < 2){
         value = 0
         value

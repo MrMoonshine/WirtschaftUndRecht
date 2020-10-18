@@ -33,7 +33,6 @@ class Description(name_i:String = "Lorem Ipsum",file_i:String = "assets/loremIps
         showAndWait()
       }
     }
-    dispButt.setStyle(loadContent("assets/styles/Button.css"))
     dispButt
   }
 

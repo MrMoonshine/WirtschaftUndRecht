@@ -1,0 +1,6 @@
+Wenn du dein Standardgehalt berechnen willst musst du
+ nicht dein Weihnachts und Urlaubsgeld angeben.
+
+ Willst du aber eins der Sondergehgälter ausrechnen dann brauchst du sie.
+ Wenn nur eines der beiden Ausgefüllt ist wird dieses sondergehalt alleine
+ ausgerechnet. Ansonsten Beide gemeinsam.

@@ -19,7 +19,6 @@ class CalculationUI(info:Description) {
     fill = UI.soconadary_title_colors(colorSelection)
   }
 
-
   private class LineFill() extends Label{
     minWidth = 300
     maxHeight = 5
@@ -28,8 +27,8 @@ class CalculationUI(info:Description) {
       startY = 0
       endX = 300
       endY = 0
-      strokeWidth = 3
-      this.setStyle("-fx-stroke: white;")
+      strokeWidth = 2
+      this.setStyle("-fx-stroke: #000000;")
     }
   }
 

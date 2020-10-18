@@ -1,12 +1,10 @@
 import java.time.Month
 
-import UI.Zwischenrechnung2UI
+import UI.InputUI
 import lohnsteuer.perpetual.PendlerPauschale
 import lohnsteuer.{Buchungsdaten, Lohnsteuer}
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.scene.Scene
-import scalafx.scene.layout.HBox
 
 //import scalafx.scene.paint.Color._
 
@@ -33,15 +31,8 @@ object Main extends JFXApp{
   //}
 
   stage = new PrimaryStage {
-    title = a.name
-    scene = new Scene {
-      fill = UI.background_color
-      content = new HBox {
-        children = Seq(
-          new Zwischenrechnung2UI(b.getCalculations())
-        )
-
-      }
-    }
+    title = UI.inputTitle
+    scene = new InputUI
+    resizable = false
   }
 }
