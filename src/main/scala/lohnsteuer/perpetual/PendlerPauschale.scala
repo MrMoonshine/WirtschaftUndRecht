@@ -28,7 +28,7 @@ class PendlerPauschale extends Buchungswerte("Pendlerpauschale"){
     if(type_pp == PendlerPauschale.NONE){return 0}
     if(distance < 0){throw new Exception("Falsche Pendlerpauschale!")}
 
-    pendlereuroRechnung = Zwischenrechnung("Pendlereuro")
+    pendlereuroRechnung = Zwischenrechnung("Pendlereuro",UI.Description.PendlerEuro)
     pendlereuro.value = distance*2/12
     pendlereuroRechnung += Buchungswerte(s"$distance * 2 / 12", pendlereuro.value)
     pendlereuroRechnung.drawResult()

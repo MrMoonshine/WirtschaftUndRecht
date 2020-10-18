@@ -5,7 +5,10 @@ import java.time.Month
 import lohnsteuer.perpetual.{Buchungswerte, MonatslohnsteuerTabelle, Zwischenrechnung}
 
 case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
+  println("Here 1")
   pers_i.refactor()
+  println("Here 2")
+  println(pers_i.toString)
   var lstbmglBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer Bemessungsgrundlage",UI.Description.Lohnsteuerbemessungsgrundlage)
   var lstBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer",UI.Description.Lohnsteuer)
   var nettoBerechnung:Zwischenrechnung = Zwischenrechnung("Netto Berechnung",UI.Description.Netto)

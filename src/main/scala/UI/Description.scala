@@ -10,6 +10,7 @@ object Description{
   lazy val Sonderzahlungen:Description = new Description("Sonderzahlungen","assets/Sonderzahlungen.txt")
   lazy val Lohnsteuer:Description = new Description("Lohnsteuer","assets/Lohnsteuer.txt")
   lazy val Netto:Description = new Description("Netto","assets/Netto.txt")
+  lazy val PendlerEuro:Description = new Description("Pendlereuro","assets/PendlerEuro.txt")
   lazy val Lohnsteuerbemessungsgrundlage:Description = new Description("Lohnsteuerbemessungsgrundlage","assets/Lohnsteuerbemessungsgrundlage.txt")
 }
 class Description(name_i:String = "Lorem Ipsum",file_i:String = "assets/loremIpsum.txt") extends Alert(AlertType.Information){

@@ -1,5 +1,8 @@
 package UI.Input
 
+import java.time.format.TextStyle
+import java.util.Locale
+
 import UI.Lohnrechnung
 import javafx.event.ActionEvent
 import lohnsteuer.Buchungsdaten
@@ -51,14 +54,18 @@ object Submit extends HBox{
     if(bd.target_lohn == Buchungsdaten.LOHN_DEFAULT){
       infotext = "Bruttogehalt"
       bd.brutto.value = removeComma(Loehne.btto.getText).toDouble
+      bd.name = "Monatslohn " + MonthSelecter.getMonth.getDisplayName(TextStyle.FULL_STANDALONE,Locale.GERMAN)
     }else{
       infotext = "Weihnachtsgehalt"
       bd.weihnachtsgeld.value = removeComma(Loehne.weih.getText).toDouble
       infotext = "Urlaubsgehalt"
       bd.urlaubsgeld.value = removeComma(Loehne.urla.getText).toDouble
+      bd.name = "Sondergehalt"
     }
 
     bd.pendlerPauschale = getPendlerpauschale()
+
+
 
     bd
   }

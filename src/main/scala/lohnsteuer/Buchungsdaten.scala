@@ -67,7 +67,9 @@ class Buchungsdaten {
   }
 
   def refactor(): Unit ={
-    getBrutto
+    //Brutto must be inserted as a whole number!!!
+    //if you need to insert working time and hour payment you will do this in the UI
+    //getBrutto
     calcGewerkschaftsbeitrag
     pendlerPauschale.calc
     calc_sv_lfd()

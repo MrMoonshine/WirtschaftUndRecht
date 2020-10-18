@@ -5,6 +5,7 @@ import lohnsteuer.perpetual.PendlerPauschale
 import lohnsteuer.{Buchungsdaten, Lohnsteuer}
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.scene.image.Image
 
 //import scalafx.scene.paint.Color._
 
@@ -34,5 +35,11 @@ object Main extends JFXApp{
     title = UI.inputTitle
     scene = new InputUI
     resizable = false
+    try{
+      icons.add(new Image("assets/icon.png"))
+      //stage.getIcons.add(new Image("assets/icon.png"))
+    }catch{
+      case ex:Exception => println("Image coundn't be loaded")
+    }
   }
 }
