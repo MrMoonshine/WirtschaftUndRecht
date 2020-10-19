@@ -66,6 +66,6 @@ object Sonderzahlungen extends VBox{
   )
 
   style = UI.inputBoxStyle
-  minHeight = 150
+  minHeight = UI.height_Sonderzahlung
   loadDefault()
 }

@@ -30,5 +30,5 @@ object Loehne extends VBox{
     },
   )
   style = UI.inputBoxStyle
-  minHeight = 200
+  minHeight = UI.height_Loehne
 }

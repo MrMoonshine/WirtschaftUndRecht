@@ -26,7 +26,7 @@ package object perpetual {
   val sz_lst_factor:Buchungswerte = Buchungswerte("LST 6%",6.0/100.0,Buchungswerte.PROZENT)
 
   //Überstunden
-  val ust_teiler:Double = 1.0/158.0
+  val ust_lst_frei:Int = 10
 
   def euroString(a:Double,console:Boolean = false): String ={
     var outstr:String = ""

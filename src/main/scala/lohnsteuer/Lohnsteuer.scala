@@ -5,9 +5,10 @@ import java.time.Month
 import lohnsteuer.perpetual.{Buchungswerte, MonatslohnsteuerTabelle, Zwischenrechnung}
 
 case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
-  println("Here 1")
+  private val ustLohn:Zwischenrechnung = new Uberstunden(pers_i).getUstLohn
+  pers_i.ust_lohn = ustLohn.result
   pers_i.refactor()
-  println("Here 2")
+
   println(pers_i.toString)
   var lstbmglBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer Bemessungsgrundlage",UI.Description.Lohnsteuerbemessungsgrundlage)
   var lstBerechnung:Zwischenrechnung = Zwischenrechnung("Lohnsteuer",UI.Description.Lohnsteuer)
@@ -38,11 +39,17 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
   }
   private def calcLohnsteuerBemessungsgrundlage(): Zwischenrechnung ={
     import pers_i._
-
+    //val uberstundenBerechnung
     lstbmglBerechnung += brutto
     //Wenn eine Sonderzahlung abgerechnet wird soll eine Andere SV-DNA berechnet werden
     target_lohn match {
-      case Buchungsdaten.LOHN_DEFAULT => lstbmglBerechnung -= sv
+      case Buchungsdaten.LOHN_DEFAULT => {
+        calc_sv_lfd()
+        if(ugl.value > 0){
+          lstbmglBerechnung += ust_lohn
+        }
+        lstbmglBerechnung -= sv
+      }
       case Buchungsdaten.LOHN_URLAUB => lstBerechnung -= svdna_urlaub.result
       case Buchungsdaten.LOHN_WEIHNACHTEN => lstBerechnung -= svdna_weihnachten.result
       case _ => throw new Exception("Ungueltige Lohnverrechnung")
@@ -61,11 +68,14 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
     import pers_i._
     val lstcat = getLSTBMGLcat(lstbmgl.value)
     val AVAB:Double = lstcat.getAVAB(kinder)
-
     lstBerechnung += lstbmgl
-    lstBerechnung -= Buchungswerte(s"${(lstcat.grenzsteuersatz*100).asInstanceOf[Int]}% LSTBMGL",lstbmgl*lstcat.grenzsteuersatz)
+    lstBerechnung *= Buchungswerte(s"${(lstcat.grenzsteuersatz*100).asInstanceOf[Int]}% LSTBMGL",lstcat.grenzsteuersatz)
     lstBerechnung -= Buchungswerte("AVAB",AVAB)
     lstBerechnung -= pendlerPauschale.pendlereuro
+
+    if(lstBerechnung.result.value < 0){
+      lstBerechnung.result.value = 0
+    }
 
     lstBerechnung.drawResult()
     lstBerechnung
@@ -122,6 +132,11 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
 
   def getCalculations():Seq[Zwischenrechnung]  ={
     var outcalcs:Seq[Zwischenrechnung] = Seq()
+
+    if(pers_i.ust_lohn.value > 0){
+      outcalcs :+= ustLohn
+    }
+
     outcalcs :+= lstbmglBerechnung
 
     if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){
@@ -135,6 +150,11 @@ case class Lohnsteuer(pers_i:Buchungsdaten, month: Month = Month.JANUARY){
 
   override def toString: String = {
     var outstr = ""
+
+    if(pers_i.ust_lohn.value > 0){
+      outstr += ustLohn.toString
+    }
+
     outstr += lstbmglBerechnung.toString
     if(pers_i.target_lohn == Buchungsdaten.LOHN_DEFAULT){
       outstr += pers_i.pendlerPauschale.pendlereuroRechnung.toString

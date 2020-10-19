@@ -8,7 +8,7 @@ object Buchungsdaten{
   val LOHN_URLAUB:Int = 2
 }
 
-class Buchungsdaten {
+class Buchungsdaten extends perpetual.Uberstunden {
   var name:String = "Unbekannt"
   //Brutto gehalt in €
   var brutto:Buchungswerte = Buchungswerte("Brutto")
@@ -26,8 +26,7 @@ class Buchungsdaten {
   var sz:Buchungswerte = Buchungswerte("Schmutzzulage")
   var ez:Buchungswerte = Buchungswerte("Erschwerniszulage")
   var gz:Buchungswerte = Buchungswerte("Gefahrenzulage")
-  //Überstunden
-  var ust:Int = 0
+
   var gewerkschaftsbeitrag:Buchungswerte = Buchungswerte("Gewerkschaftsbeitrag")
   //sozialversichenrung
   var sv:Buchungswerte = Buchungswerte("SV-DNA")
@@ -58,11 +57,11 @@ class Buchungsdaten {
     }
   }
 
-  private def calc_sv_lfd(): Unit ={
-    if(brutto.value > 5370){
+  def calc_sv_lfd(): Unit ={
+    if(brutto.value + ust_lohn.value > 5370){
       sv.value = 5370 * perpetual.sv_faktor
     }else{
-      sv.value = brutto * perpetual.sv_faktor
+      sv.value = (brutto.value + ust_lohn.value) * perpetual.sv_faktor
     }
   }
 

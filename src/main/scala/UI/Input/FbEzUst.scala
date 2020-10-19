@@ -10,6 +10,10 @@ object FbEzUst extends Accordion{
       content = Freibetrag
     },
     new TitledPane {
+      text = "Überstunden"
+      content = Uberstunden
+    },
+    new TitledPane {
       text = "Pendlerpauschale"
       content = Pendlerpauschale
     },
@@ -18,9 +22,9 @@ object FbEzUst extends Accordion{
       content = new Title("W.I.P")
     },
     new TitledPane {
-      text = "Überstunden"
-      content = new Title("W.I.P")
-    },
+      text = "AVAB/AEVB"
+      content = Avab
+    }
   )
   style =
     """-fx-border-width: 1px;

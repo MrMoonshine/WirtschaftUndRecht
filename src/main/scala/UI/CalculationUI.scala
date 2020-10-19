@@ -11,6 +11,7 @@ class CalculationUI(info:Description) {
   protected lazy val ADD:Int = 0
   protected lazy val SUBSTRACT:Int = 1
   protected lazy val MULTIPLY:Int = 2
+  protected lazy val PERCENT:Int = 3
 
   private lazy val colorSelection:Int = Zwischenrechnung.NOE % UI.soconadary_title_colors.length
 
@@ -52,7 +53,8 @@ class CalculationUI(info:Description) {
     calcType match {
       case ADD => calculationPane.addRow(row_id,new DarkLabel(a.name),new DarkLabel(a.euroStringUI()))
       case SUBSTRACT => calculationPane.addRow(row_id,new DarkLabel(a.name),new DarkLabel("-" + a.euroStringUI()))
-      case MULTIPLY => calculationPane.addRow(row_id,new DarkLabel(a.name),new DarkLabel(s"${a.value * 100.0}%"))
+      case MULTIPLY => calculationPane.addRow(row_id,new DarkLabel(a.name),new DarkLabel(s"*${a.value}"))
+      case PERCENT => calculationPane.addRow(row_id,new DarkLabel(a.name),new DarkLabel(f"${a.value * 100.0}%1.2f" + "%"))
     }
   }
 

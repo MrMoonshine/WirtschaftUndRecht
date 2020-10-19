@@ -26,6 +26,12 @@ package object UI {
   lazy val style_optional:String = "-fx-Background-color: khaki ;"
   lazy val style_used:String = "-fx-Background-color: #8ed6e6 ;"
 
+  val height_total:Int = 300
+  val height_Sonderzahlung:Int = 150
+  val height_MonthSelect:Int = height_total - height_Sonderzahlung
+  val height_Submit:Int = 50
+  val height_Loehne:Int = height_total -height_Submit
+
   class smallInputTitle(text_i:String) extends Text{
     style = "-fx-font-size: 12pt;"
     text = text_i

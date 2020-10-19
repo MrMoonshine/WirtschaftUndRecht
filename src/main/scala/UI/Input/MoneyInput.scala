@@ -4,10 +4,10 @@ import javafx.scene.control.Tooltip
 import scalafx.scene.control.{TextField, TextFormatter}
 import scalafx.util.converter.NumberStringConverter
 
-class MoneyInput(tooltip_i:String = "") extends TextField{
+class MoneyInput(tooltip_i:String = "",default_i:String = 0.toString) extends TextField{
   def markRedundant:Unit={
     this.setTooltip(new Tooltip(s"$tooltip_i wird nicht in der ausgewählten Berechnung benutzt"))
-      style = UI.style_redundant
+    style = UI.style_redundant
   }
 
   def markOptional:Unit={
@@ -19,7 +19,8 @@ class MoneyInput(tooltip_i:String = "") extends TextField{
     this.setTooltip(new Tooltip(s"$tooltip_i wird benutzt"))
     style = UI.style_used
   }
-  text = "0"
+
   this.setTextFormatter(new TextFormatter(new NumberStringConverter()))
   this.setTooltip(new Tooltip(tooltip_i))
+  text = default_i
 }

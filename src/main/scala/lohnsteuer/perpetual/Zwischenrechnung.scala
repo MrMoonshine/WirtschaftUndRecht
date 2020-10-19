@@ -35,7 +35,12 @@ case class Zwischenrechnung(title:String,info_i:Description = new Description())
 
   def *=(a:Buchungswerte): Unit ={
     cliStr += "*" + a.toString() + "\n"
-    addCalculation(a,MULTIPLY)
+    if(a.number_unit == Buchungswerte.PROZENT){
+      addCalculation(a,PERCENT)
+    }else{
+      addCalculation(a,MULTIPLY)
+    }
+
     result.value = result * a
   }
 

@@ -69,11 +69,11 @@ class Sonderzahlungen(pers_i:Buchungsdaten){
     diffCalc.toString + svdna_weihnachtsgeld.toString + weihnachtsgeld_netto.toString
   }
 
-  val diffCalc = getSzDiff()
-  lazy val svdna_weihnachtsgeld = getSV_DNA(weihnachtsgeld)
-  lazy val svdna_urlaubsgeld = getSV_DNA(urlaubsgeld)
-  lazy val weihnachtsgeld_lst = getLohnsteuer(weihnachtsgeld,svdna_weihnachtsgeld.result)
-  lazy val urlaubsgeld_lst = getLohnsteuer(urlaubsgeld,svdna_urlaubsgeld.result)
-  lazy val weihnachtsgeld_netto = getNetto(weihnachtsgeld,weihnachtsgeld_lst.result)
-  lazy val urlaubsgeld_netto = getNetto(urlaubsgeld,urlaubsgeld_lst.result)
+  val diffCalc:Zwischenrechnung = getSzDiff()
+  lazy val svdna_weihnachtsgeld:Zwischenrechnung = getSV_DNA(weihnachtsgeld)
+  lazy val svdna_urlaubsgeld:Zwischenrechnung = getSV_DNA(urlaubsgeld)
+  lazy val weihnachtsgeld_lst:Zwischenrechnung = getLohnsteuer(weihnachtsgeld,svdna_weihnachtsgeld.result)
+  lazy val urlaubsgeld_lst:Zwischenrechnung = getLohnsteuer(urlaubsgeld,svdna_urlaubsgeld.result)
+  lazy val weihnachtsgeld_netto:Zwischenrechnung = getNetto(weihnachtsgeld,weihnachtsgeld_lst.result)
+  lazy val urlaubsgeld_netto:Zwischenrechnung = getNetto(urlaubsgeld,urlaubsgeld_lst.result)
 }

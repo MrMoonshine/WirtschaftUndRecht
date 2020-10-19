@@ -21,6 +21,8 @@ object Main extends JFXApp{
       kinder = 4
       freibetrag.value = 24.80
       ust = 25
+      ugl.value = 1600
+      uz.value = 0.5
       weihnachtsgeld.value = 6400
       urlaubsgeld.value = 6100
       target_lohn = Buchungsdaten.LOHN_DEFAULT

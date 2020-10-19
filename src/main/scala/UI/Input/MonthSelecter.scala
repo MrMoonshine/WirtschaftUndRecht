@@ -20,5 +20,5 @@ object MonthSelecter extends VBox{
     new Label("Wähle einen Tag im Monat aus")
   )
   style = UI.inputBoxStyle
-  minHeight = 100
+  minHeight = UI.height_MonthSelect
 }

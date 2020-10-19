@@ -11,6 +11,7 @@ import scalafx.scene.control.{Alert, Button}
 import scalafx.scene.layout.HBox
 
 object Submit extends HBox{
+  val UST_ROUND_HELPER:Double = 1000.0
   private var infotext:String = ""
   private def removeComma(str_i:String): String ={
     str_i.replace(",","")
@@ -55,6 +56,17 @@ object Submit extends HBox{
       infotext = "Bruttogehalt"
       bd.brutto.value = removeComma(Loehne.btto.getText).toDouble
       bd.name = "Monatslohn " + MonthSelecter.getMonth.getDisplayName(TextStyle.FULL_STANDALONE,Locale.GERMAN)
+
+      //Überstunden Zeug
+      infotext = "Überstunden Grundlohn"
+      bd.ugl.value = removeComma(UI.Input.Uberstunden.ugl.getText).toDouble
+      infotext = "Anzahl der Überstunden"
+      bd.ust = removeComma(UI.Input.Uberstunden.ust_amount.getText).toInt
+      infotext = "Überstundenteiler"
+      bd.ust_factor.value = removeComma(UI.Input.Uberstunden.utl.getText).toDouble/UST_ROUND_HELPER
+      infotext = "Uberstundenzuschlag"
+      bd.uz.value = UI.Input.Uberstunden.getUZ()
+
     }else{
       infotext = "Weihnachtsgehalt"
       bd.weihnachtsgeld.value = removeComma(Loehne.weih.getText).toDouble
@@ -63,6 +75,7 @@ object Submit extends HBox{
       bd.name = "Sondergehalt"
     }
 
+    bd.kinder = Avab.numbOfChildren
     bd.pendlerPauschale = getPendlerpauschale()
 
 
@@ -88,5 +101,5 @@ object Submit extends HBox{
     }
   )
   style = UI.inputBoxStyle
-  minHeight = 50
+  minHeight = UI.height_Submit
 }
