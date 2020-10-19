@@ -32,6 +32,8 @@ package object UI {
   val height_Submit:Int = 50
   val height_Loehne:Int = height_total -height_Submit
 
+  val heightMax_Lohnrechnung:Int = 800
+
   class smallInputTitle(text_i:String) extends Text{
     style = "-fx-font-size: 12pt;"
     text = text_i

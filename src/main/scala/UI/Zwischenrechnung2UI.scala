@@ -2,6 +2,7 @@ package UI
 
 import lohnsteuer.perpetual.Zwischenrechnung
 import scalafx.scene.layout.VBox
+import scalafx.scene.text.Text
 
 class Zwischenrechnung2UI(list_i:Seq[Zwischenrechnung]) extends VBox{
   //private var children_n:Seq[GridPane] = Seq()
