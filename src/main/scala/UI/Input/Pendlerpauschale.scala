@@ -30,7 +30,6 @@ object Pendlerpauschale extends VBox{
         pp,
         new Label("km")
       )
-    },
-    new Label(pp.getText)
+    }
   )
 }

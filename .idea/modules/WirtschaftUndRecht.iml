@@ -12,6 +12,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.openjfx:javafx-base:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:14.0.1:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.13.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scalafx:scalafx_2.13:14-R19:jar" level="project" />
     <orderEntry type="module-library">
       <library name="sbt: unmanaged-sources-and-docs">
         <CLASSES />
@@ -27,14 +36,5 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="sbt: org.scalafx:scalafx_2.13:14-R19:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.13.3:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.3:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:14.0.1:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:14.0.1:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:14.0.1:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:14.0.1:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:14.0.1:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:14.0.1:linux:jar" level="project" />
   </component>
 </module>
